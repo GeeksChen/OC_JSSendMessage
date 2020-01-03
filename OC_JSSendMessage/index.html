@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OC与JS交互</title>
+        <style type="text/css">
+            #u_status {
+                width: 100%;
+                height: 80px;
+                background-color: gray;
+                text-align: center;
+                font-size: 50px;
+            }
+        #u_info {
+            width: 100%;
+            height: 120px;
+        }
+        #u_info input {
+            font-size: 20px;
+            width: 80%;
+            height: 30px;
+            margin: 10px;
+        }
+        #u_send {
+            /*background-color: red; */
+            width: 100%;
+            height: 80px;
+        }
+        #u_send button {
+            text-align: center;
+            width: 200px;
+            height: 50px;
+        }
+        </style>
+        <script type="text/javascript">
+            function sendUserInfo() {
+                
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                window.webkit.messageHandlers.messageHandler.postMessage(encodeURIComponent(JSON.stringify({"type": "submit", "username": username, "password": password})))
+            }
+            //OC调用js代码时应该保证，js代码处于全局位置或者能够确定代码所处位置，正确认识其层级关系
+            function deviceInfo(version) {
+                alert(version);
+                //document.getElementById("password").innerHTML=version;
+                
+            }
+        </script>
+    </head>
+    <body>
+        
+        <div id="u_status">
+            用户状态:未登录
+        </div>
+        <div id="u_info">
+            用户:<input id="username" type="text" name="username">
+                </br>
+                密码:<input id="password" type="text" name="password">
+                    </div>
+        
+        <div id="u_send">
+            <button onclick="sendUserInfo()">提交</button>
+        </div>
+        
+    </body>
+</html>
